@@ -5,7 +5,7 @@ html, body, div, span, object,li,ul,img iframe, h1, h2, h3, h4, h5, h6, p, pre, 
   outline: none;
   font-size: 100%;
   font-family: "微软雅黑", \5B8B\4F53, arial, sans-serif;
-  color: #000000;
+  font-size: 16px;
 }
 .clearfix:after {
   clear: both;
