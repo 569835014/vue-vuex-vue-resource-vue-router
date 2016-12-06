@@ -39,7 +39,7 @@ validate.install = function (Vue, options) {
         el=el.getElementsByTagName("input")[0]
       }
       var rule=that.rules[opt.type];
-      var vm=vnode.context._self._data.callObj[opt.type];
+      var vm=vnode.context.callObj[opt.type];
       console.info(vm)
       if(!rule){
         that.rules[opt.type]=opt;
@@ -79,7 +79,7 @@ validate.install = function (Vue, options) {
         }
         if(!rule.result){
           vm.flag=true;
-          vm.text=rule.text;
+          vm.text=rule.msg;
         }
       }
     },
