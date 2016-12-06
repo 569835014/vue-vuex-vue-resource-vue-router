@@ -6,13 +6,17 @@ let validate={
     email: {
       ev:"input",
       type:"email",
+      msg:"邮箱格式错误",
       ruleList:[ /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/],
       symbol:"and",
+      result:false
     },
     userName:{
       ev:"input",
       type:"userName",
       symbol:"or",
+      msg:"用户名格式错误",
+      result:false,
       ruleList:[/^1(3|4|5|7|8)\d{9}$/, /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/]
     }
   },
@@ -35,13 +39,13 @@ validate.install = function (Vue, options) {
         el=el.getElementsByTagName("input")[0]
       }
       var rule=that.rules[opt.type];
-      console.info(rule);
+      var vm=vnode.context._self._data.callObj[opt.type];
+      console.info(vm)
       if(!rule){
         that.rules[opt.type]=opt;
         rule=opt;
       }else{
         Object.assign(that.rules[opt.type],opt);
-        console.info(that.rules[opt.type])
       }
       var list=rule.ruleList;
       el.addEventListener(opt.ev,validateMet,true);
@@ -51,21 +55,38 @@ validate.install = function (Vue, options) {
           var reg=list[i];
           if(rule.symbol=="and"){
             if(!reg.test(val)){
+
               console.info("无效");
               alert("无效");
               break
+            }else{
+              if(i==l-1){
+                if(reg.test(val)){
+                  rule.result=true;
+                }
+              }
             }
+
+
           }else{
             if(reg.test(val)){
+              rule.result=true;
               console.info("有效");
               alert("有效");
               break
             }
           }
         }
+        if(!rule.result){
+          vm.flag=true;
+          vm.text=rule.text;
+        }
       }
     },
-    update:{},
+    update:function (oldValue,value) {
+      var self = this;
+      console.info(self)
+    },
   });
   // 3. 添加实例方法
   // Vue.prototype.$myMethod = ...

@@ -5,7 +5,8 @@
         <mu-icon-button icon='expand_more' slot="right"/>
       </mu-appbar>
       <div>{{test}}</div>
-      <input type="text" v-validate="userName">
+      <input type="text" v-validate="userName"><span icon="phone" v-if="callObj.userName.flag">{{callObj.userName.text}}</span>
+
       <mu-text-field label="请输入邮箱" hintText="请输入邮箱" type="text" icon="phone" errorText="" :maxLength="10" errorColor="red" labelFloat v-validate="{'ev':'change',type:'email'}"/>
     </div>
 </template>
@@ -25,8 +26,17 @@
           symbol:"or",
           ruleList:[/^1(3|4|5|7|8)\d{9}$/, /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/]
         },
-         test:"a"
+         test:"a",
+         callObj:{
+           userName:{
+             flag:false,
+             text:"",
+           }
+         }
       }
+    },
+    methods:{
+
     },
     components:{
       "mu-appbar":MuAppbar,
