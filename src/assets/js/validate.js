@@ -2,14 +2,14 @@
  * Created by Administrator on 2016/12/6 0006.
  */
 let validate={
-  rules:{
+  rules:{//内置验证类型  比如邮箱，用户名
     email: {
-      ev:"input",
-      type:"email",
-      msg:"邮箱格式错误",
-      ruleList:[ /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/],
-      symbol:"and",
-      result:false
+      ev:"input",//ev：事件出发方式，例如input、change等，
+      type:"email",//type和key值相同
+      msg:"邮箱格式错误",//错误提示信息
+      ruleList:[ /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/],//正则数组
+      symbol:"and",//连接符，and是正则数组验证为true返回真，or只要一个验证为证即为真
+      result:false//验证结果一般默认false
     },
     userName:{
       ev:"input",
@@ -28,9 +28,8 @@ let validate={
       ruleList:[/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/,/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/]
     }
   },
-  vali:{}
 };
-validate.install = function (Vue, options) {
+validate.install = function (Vue, options) {//vue扩展
   var that=this;
   // 1. 添加全局方法或属性
   // Vue.myGlobalValidate ={
@@ -39,7 +38,8 @@ validate.install = function (Vue, options) {
   //   msg:""
   // };
   // 2. 添加全局资源
-  Vue.directive('validate', {
+  Vue.directive('validate', {//vue自定义指令
+    //根据自定义指令配置参数，选择验证类型和绑定验证事件
     bind:function (el, binding, vnode) {
       var opt=binding.value;
       if(el.tagName.toLocaleLowerCase()!="input"){

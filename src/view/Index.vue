@@ -20,17 +20,17 @@
   export default{
     data(){
       return {
-         userName:{
+         userName:{//验证用户名参数可以自定义参数覆盖内置验证类型和扩展验证类型
           ev:"input",
           type:"userName",
           symbol:"or",
           ruleList:[/^1(3|4|5|7|8)\d{9}$/, /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/]
         },
          test:"a",
-        validateResult:{
-          userName:{
-             flag:false,
-             msg:"",
+        validateResult:{//验证结果
+          userName:{//用户名验证结果
+             flag:false,//验证成功或者失败
+             msg:"",//自定义验证信息
            },
           idCard:{
             flag:false,
@@ -43,7 +43,7 @@
           email1:{
             flag:false,
             msg:""
-          },
+          },//当同时有N个同类型一起验证，验证结果要加命名空间，找到对应的验证结果
           email2:{
             flag:false,
             msg:""
